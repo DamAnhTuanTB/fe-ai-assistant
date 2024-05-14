@@ -17,11 +17,23 @@ export default function CustomPasswordInput({
   register,
   isRequired = false,
   size = "lg",
-}: any) {
+}: {
+  label?: string;
+  placeholder?: string;
+  error?: any;
+  helperText?: string;
+  register?: any;
+  isRequired?: boolean;
+  size?: "sm" | "md" | "lg";
+}) {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   return (
-    <FormControl isInvalid={error} sx={{ mb: "16px" }} isRequired={isRequired}>
+    <FormControl
+      isInvalid={!!error}
+      sx={{ mb: "16px" }}
+      isRequired={isRequired}
+    >
       <FormLabel>{label}</FormLabel>
       <InputGroup>
         <Input

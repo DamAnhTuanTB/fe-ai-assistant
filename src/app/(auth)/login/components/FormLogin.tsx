@@ -8,14 +8,18 @@ import {
   Divider,
   Image,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import Logo from "./Logo";
+// import "./login.scss";
+import styles from "./styles.module.scss";
 
 export default function FormLogin() {
+  const { colorMode, setColorMode, toggleColorMode } = useColorMode();
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -41,36 +45,17 @@ export default function FormLogin() {
 
   return (
     <Box
-      sx={{
-        width: {
-          base: "100%",
-          md: "40%",
-        },
-        p: "32px",
-        pr: "0px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
+      className={styles.parent}
+      bg={colorMode === "dark" ? "gray.900" : "white.100"}
+      w={{ base: "100%", md: "40%" }}
     >
-      <Box sx={{ maxHeight: "100vh", overflowY: "auto", pr: "32px" }}>
+      <Box className={styles.formContainer}>
         <Logo sx={{ display: { base: "flex", md: "none" } }} />
-        <Text
-          sx={{
-            fontSize: "28px",
-            mt: {
-              base: "24px",
-              md: "0px",
-            },
-            mb: "28px",
-            fontWeight: "medium",
-            color: "green.800",
-          }}
-        >
+        <Text className={styles.text}>
           <StarIcon
-            color="green.300"
             sx={{ display: { base: "none", md: "inline-block" } }}
-          />{" "}
+            color="green.300"
+          />
           Login to use more features
         </Text>
         <form
@@ -83,12 +68,14 @@ export default function FormLogin() {
             error={errors["email"]}
             register={register("email")}
             isRequired={true}
+            placeholder=" Please Enter Email"
           />
           <CustomPasswordInput
             label="Password"
             error={errors["password"]}
             register={register("password")}
             isRequired={true}
+            placeholder=" Please Enter Password"
           />
           <Button
             type="submit"
@@ -96,13 +83,17 @@ export default function FormLogin() {
             width="100%"
             colorScheme="teal"
             sx={{ mt: "16px" }}
+            bgGradient="linear(to-r, teal.500, green.500)"
+            _hover={{
+              bgGradient: "linear(to-r, red.500, yellow.500)",
+            }}
           >
             Login
           </Button>
         </form>
         <Box position="relative" pt={10} pb={10}>
           <Divider />
-          <AbsoluteCenter bg="white" px="4">
+          <AbsoluteCenter color="gray.500" bg="white" px="4">
             or
           </AbsoluteCenter>
         </Box>

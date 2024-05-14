@@ -1,9 +1,8 @@
-import { ColorModeScript } from "@chakra-ui/react";
+import { ColorModeScript, theme } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import theme from "./theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="icon"
+          href="/images/logo-ai-assistant.png"
+          type="image/png"
+        />
+      </head>
       <body className={inter.className}>
         {/* Add ColorModeScript to use the color mode feature of Chakra UI. */}
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />

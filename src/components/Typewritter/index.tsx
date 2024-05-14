@@ -11,7 +11,7 @@ const Typewriter = ({
   icon?: string;
 }) => {
   const [displayText, setDisplayText] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1);
 
   useEffect(() => {
     setTimeout(() => {
@@ -29,15 +29,15 @@ const Typewriter = ({
         sx={{
           "&::after": {
             content: "''",
+            display: "inline-block",
             width: "55px",
             height: "55px",
-            display: "inline-block",
             borderRadius: "50%",
-            position: "absolute",
-            bottom: "2px",
             backgroundImage: icon ? `url(${icon})` : "",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
+            position: "absolute",
+            bottom: "2px",
           },
           ...sx,
         }}
