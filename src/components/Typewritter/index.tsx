@@ -11,20 +11,19 @@ const Typewriter = ({
   icon?: string;
 }) => {
   const [displayText, setDisplayText] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timeOut = setTimeout(() => {
       if (currentIndex < text.length) {
-        setDisplayText((prevText) => prevText + text[currentIndex]);
-        setCurrentIndex((prevIndex) => prevIndex + 1);
+        setDisplayText(text.substring(0, currentIndex + 1));
+        setCurrentIndex(currentIndex + 1);
+        // setCurrentIndex((prev) => prev + 1);
       } else {
-        clearInterval(interval); // Dừng khi hiển thị đầy đủ câu
+        clearInterval(timeOut); // Dừng khi hiển thị đầy đủ câu
       }
     }, 30); // Thay đổi thời gian ở đây để điều chỉnh tốc độ
-
-    return () => clearInterval(interval);
-  }, [currentIndex, text]);
+  }, [text, currentIndex]);
 
   return (
     displayText && (
@@ -33,15 +32,15 @@ const Typewriter = ({
         sx={{
           "&::after": {
             content: "''",
+            display: "inline-block",
             width: "55px",
             height: "55px",
-            display: "inline-block",
             borderRadius: "50%",
-            position: "absolute",
-            bottom: "2px",
             backgroundImage: icon ? `url(${icon})` : "",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
+            position: "absolute",
+            bottom: "2px",
           },
           ...sx,
         }}

@@ -1,10 +1,17 @@
 "use client";
 import Typewriter from "@/components/Typewritter";
-import { Box, Image, Text, useColorMode } from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Text,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Logo from "./Logo";
 
 export default function LeftSide() {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode, setColorMode, toggleColorMode } = useColorMode();
+  const bg = useColorModeValue("gray.300", "black.500");
   return (
     <Box
       sx={{
@@ -14,9 +21,9 @@ export default function LeftSide() {
           md: "block",
         },
         p: "32px",
-        background: "gray.300",
         overflowY: "auto",
       }}
+      bg={bg}
     >
       <Logo />
       <Image

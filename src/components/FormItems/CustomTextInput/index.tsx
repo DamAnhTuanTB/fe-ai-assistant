@@ -13,9 +13,21 @@ export default function CustomTextInput({
   register,
   isRequired,
   size = "lg",
-}: any) {
+}: {
+  label?: string;
+  placeholder?: string;
+  error?: any;
+  helperText?: string;
+  register?: any;
+  isRequired?: boolean;
+  size?: "sm" | "md" | "lg";
+}) {
   return (
-    <FormControl isInvalid={error} sx={{ mb: "16px" }} isRequired={isRequired}>
+    <FormControl
+      isInvalid={!!error}
+      sx={{ mb: "16px" }}
+      isRequired={isRequired}
+    >
       <FormLabel>{label}</FormLabel>
       <Input
         type="text"
