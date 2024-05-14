@@ -7,16 +7,14 @@ axios.defaults.baseURL =
 
 async function getToken() {
   if (typeof window === "undefined") return "";
-  const token = window.localStorage.getItem("token");
-  return token ? `Bearer ${token}` : "";
+  return window.localStorage.getItem("token");
 }
 
 axios.interceptors.request.use(async (config) => {
   const token = await getToken();
   if (token) {
-    config.headers.Authorization = token;
+    config.headers.Authorization = `Bearer ${token}`;
   }
-
   return config;
 });
 

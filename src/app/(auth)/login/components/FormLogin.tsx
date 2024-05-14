@@ -1,6 +1,5 @@
-"use client";
-import CustomPasswordInput from "@/components/CustomPasswordInput";
-import CustomTextInput from "@/components/CustomTextInput";
+import CustomPasswordInput from "@/components/FormItems/CustomPasswordInput";
+import CustomTextInput from "@/components/FormItems/CustomTextInput";
 import { StarIcon } from "@chakra-ui/icons";
 import {
   AbsoluteCenter,
@@ -11,11 +10,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
+
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import Logo from "./Logo";
 
-export default function RightSide() {
+export default function FormLogin() {
   const schema = yup.object().shape({
     email: yup
       .string()

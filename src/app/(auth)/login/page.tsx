@@ -1,7 +1,5 @@
-import { Box } from "@chakra-ui/react";
 import { Metadata } from "next";
-import LeftSide from "./components/LeftSide";
-import RightSide from "./components/RightSide";
+import LoginPage from "./LoginPage";
 
 export const metadata: Metadata = {
   title: "Login",
@@ -9,10 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function Login() {
-  return (
-    <Box sx={{ display: "flex", height: "100vh", width: "100vw" }}>
-      <LeftSide />
-      <RightSide />
-    </Box>
-  );
+  return <LoginPage />;
 }

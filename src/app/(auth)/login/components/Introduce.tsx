@@ -1,9 +1,8 @@
-"use client";
 import Typewriter from "@/components/Typewritter";
 import { Box, Image, Text, useColorMode } from "@chakra-ui/react";
 import Logo from "./Logo";
 
-export default function LeftSide() {
+export default function Introduce() {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box

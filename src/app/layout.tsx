@@ -22,7 +22,9 @@ export default function RootLayout({
       <body className={inter.className}>
         {/* Add ColorModeScript to use the color mode feature of Chakra UI. */}
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          </Providers>
       </body>
     </html>
   );

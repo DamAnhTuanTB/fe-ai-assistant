@@ -14,16 +14,12 @@ const Typewriter = ({
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    setTimeout(() => {
       if (currentIndex < text.length) {
-        setDisplayText((prevText) => prevText + text[currentIndex]);
-        setCurrentIndex((prevIndex) => prevIndex + 1);
-      } else {
-        clearInterval(interval); // Dừng khi hiển thị đầy đủ câu
+        setDisplayText(displayText + text[currentIndex]);
+        setCurrentIndex(currentIndex + 1);
       }
     }, 30); // Thay đổi thời gian ở đây để điều chỉnh tốc độ
-
-    return () => clearInterval(interval);
   }, [currentIndex, text]);
 
   return (
