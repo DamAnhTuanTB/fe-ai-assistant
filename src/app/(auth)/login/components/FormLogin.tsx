@@ -16,10 +16,16 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import Logo from "./Logo";
 // import "./login.scss";
+import authServices from "@/services/auth";
+
+import useToastMessage from "@/utils/useToastMessage";
+import { useState } from "react";
 import styles from "./styles.module.scss";
 
 export default function FormLogin() {
   const { colorMode, setColorMode, toggleColorMode } = useColorMode();
+  const { showError } = useToastMessage();
+  const [loading, setLoading] = useState(false);
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -40,7 +46,26 @@ export default function FormLogin() {
   });
 
   const onSubmit = (values: any) => {
-    console.log(values);
+    setLoading(true);
+    authServices
+      .login(values)
+      .then((res) => {
+        console.log(res?.data);
+      })
+      .catch((err) => {
+        showError(
+          "Error",
+          "Email or password is incorrect. Please check again."
+        );
+        // console.log(err?.response?.data?.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const loginWithSocial = (social: string) => {
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/${social}?redirect_url=${window.location.origin}`;
   };
 
   return (
@@ -78,6 +103,7 @@ export default function FormLogin() {
             placeholder=" Please Enter Password"
           />
           <Button
+            isLoading={loading}
             type="submit"
             size="lg"
             width="100%"
@@ -103,6 +129,7 @@ export default function FormLogin() {
             colorScheme="teal"
             variant="outline"
             leftIcon={<Image src="/images/google.png" alt="" width={30} />}
+            onClick={() => loginWithSocial("google")}
           >
             <Text width={220} textAlign="left">
               Continue with Google
@@ -113,6 +140,7 @@ export default function FormLogin() {
             colorScheme="teal"
             variant="outline"
             leftIcon={<Image src="/images/facebook.svg" alt="" width={30} />}
+            onClick={() => loginWithSocial("facebook")}
           >
             <Text width={220} textAlign="left">
               Continue with Facebook
