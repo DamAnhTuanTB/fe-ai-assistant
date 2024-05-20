@@ -53,30 +53,30 @@ axios.interceptors.response.use(
   }
 );
 
-export function getApi(url: string, params = {}, other: any) {
+export function getApi(url: string, params = {}, other?: any) {
   return axios.get(url, {
     params,
     ...other,
   });
 }
 
-export function postApi(url: string, payload = {}, other: any) {
+export function postApi(url: string, payload = {}, other?: any) {
   return axios.post(url, payload, {
     ...other,
   });
 }
 
-export function putApi(url: string, payload = {}, other: any) {
+export function putApi(url: string, payload = {}, other?: any) {
   return axios.put(url, payload, {
     ...other,
   });
 }
 
-export function patchApi(url: string, payload = {}, config: any) {
+export function patchApi(url: string, payload = {}, config?: any) {
   return axios.patch(url, payload, config);
 }
 
-export function deleteApi(url: string, params = {}, other: any) {
+export function deleteApi(url: string, params = {}, other?: any) {
   return axios.delete(url, {
     params,
     ...other,
