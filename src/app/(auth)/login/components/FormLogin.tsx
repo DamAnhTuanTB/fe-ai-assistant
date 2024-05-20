@@ -51,7 +51,7 @@ export default function FormLogin() {
     >
       <Box className={styles.formContainer}>
         <Logo sx={{ display: { base: "flex", md: "none" } }} />
-        <Text className={styles.text}>
+        <Text className={styles.text} color="green.800">
           <StarIcon
             sx={{ display: { base: "none", md: "inline-block" } }}
             color="green.300"
