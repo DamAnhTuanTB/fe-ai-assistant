@@ -5,7 +5,7 @@ import { useLayoutEffect } from "react";
 
 const routesAuth = ["/login", "/register"];
 
-export default function publicRoute(Component: React.FC) {
+export default function publicRoute(Component: any) {
   return function PublicRoute(props: any) {
     useLayoutEffect(() => {
       const token = localStorage.getItem("token");

@@ -80,7 +80,7 @@ export default function FormLogin() {
           <StarIcon
             sx={{ display: { base: "none", md: "inline-block" } }}
             color="green.300"
-          />
+          />{" "}
           Login to use more features
         </Text>
         <form
