@@ -15,16 +15,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import Logo from "./Logo";
-// import "./login.scss";
+
 import authServices from "@/services/auth";
 
+import { setLogin } from "@/redux/slices/appSlice";
 import useToastMessage from "@/utils/useToastMessage";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import styles from "./styles.module.scss";
 
 export default function FormLogin() {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const { colorMode, setColorMode, toggleColorMode } = useColorMode();
-  const { showError } = useToastMessage();
+  const { showError, showSuccess } = useToastMessage();
   const [loading, setLoading] = useState(false);
   const schema = yup.object().shape({
     email: yup
@@ -49,8 +54,12 @@ export default function FormLogin() {
     setLoading(true);
     authServices
       .login(values)
-      .then((res) => {
-        console.log(res?.data);
+      .then((res: any) => {
+        localStorage.setItem("token", res?.token);
+        localStorage.setItem("refreshToken", res?.refreshToken);
+        dispatch(setLogin(true));
+        showSuccess("Success", "Login successfully");
+        router.push("/");
       })
       .catch((err) => {
         showError(

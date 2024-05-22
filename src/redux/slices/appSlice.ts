@@ -1,3 +1,4 @@
+import { getLocalStorage } from "@/utils/storage";
 import { createSlice } from "@reduxjs/toolkit";
 // import { authService } from "../services/authService";
 
@@ -12,7 +13,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const appSlice = createSlice({
   name: "app",
   initialState: {
-    isLogin: false,
+    isLogin: !!getLocalStorage("token"),
     infoUser: {},
   },
   reducers: {

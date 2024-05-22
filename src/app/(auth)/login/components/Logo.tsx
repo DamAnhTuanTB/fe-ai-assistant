@@ -8,7 +8,6 @@ export default function Logo({ sx }: { sx?: any }) {
         alignItems: "center",
         gap: "6px",
         fontWeight: "bold",
-        fontSize: "24px",
         ...sx,
       }}
     >

@@ -32,10 +32,14 @@ const theme = extendTheme({
         default: "red.800",
         _dark: "red.700",
       },
-    },
-    background: {
-      LightMode: "red.500",
-      DarkMode: "gray.300",
+      sidebar: {
+        default: "#F9F9F9",
+        _dark: "#181818",
+      },
+      content: {
+        default: "white",
+        _dark: "#212121",
+      },
     },
   },
 });

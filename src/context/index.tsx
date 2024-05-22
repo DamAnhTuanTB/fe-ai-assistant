@@ -1,4 +1,5 @@
 "use client";
+import { getLocalStorage } from "@/utils/storage";
 import { ReactNode, createContext, useState } from "react";
 
 const AppContext = createContext<{
@@ -9,7 +10,7 @@ const AppContext = createContext<{
 } | null>(null);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(!!getLocalStorage("token"));
   const [infoUser, setInfoUser] = useState<any>();
 
   return (
