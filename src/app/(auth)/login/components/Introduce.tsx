@@ -1,15 +1,8 @@
 import Typewriter from "@/components/Typewritter";
-import {
-  Box,
-  Image,
-  Text,
-  useColorMode,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Image, Text, useColorModeValue } from "@chakra-ui/react";
 import Logo from "./Logo";
 
 export default function Introduce() {
-  const { colorMode, setColorMode, toggleColorMode } = useColorMode();
   const bg = useColorModeValue("gray.300", "black.500");
   return (
     <Box
@@ -46,9 +39,6 @@ export default function Introduce() {
           icon="/images/icon-last-text.png"
         />
       </Box>
-      {/* <Button onClick={toggleColorMode}>
-        Toggle {colorMode === "light" ? "Dark" : "Light"}
-      </Button> */}
     </Box>
   );
 }

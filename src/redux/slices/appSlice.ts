@@ -1,4 +1,3 @@
-import { getLocalStorage } from "@/utils/storage";
 import { createSlice } from "@reduxjs/toolkit";
 // import { authService } from "../services/authService";
 
@@ -6,15 +5,18 @@ import { createSlice } from "@reduxjs/toolkit";
 //   "user/fetchUserData",
 //   async (body) => {
 //     const data = await authService.getProfile();
-//     return data?.data;
+//     return data?.data;s
 //   }
 // );
 
 const appSlice = createSlice({
   name: "app",
   initialState: {
-    isLogin: !!getLocalStorage("token"),
-    infoUser: {},
+    isLogin: false,
+    infoUser: null,
+    openSidebar: true,
+    language: "en",
+    theme: "light",
   },
   reducers: {
     setLogin: (state, action) => {
@@ -22,6 +24,15 @@ const appSlice = createSlice({
     },
     setInfoUser: (state, action) => {
       state.infoUser = action.payload;
+    },
+    setOpenSidebar: (state, action) => {
+      state.openSidebar = action.payload;
+    },
+    setTheme: (state, action) => {
+      state.theme = action.payload;
+    },
+    setLanguage: (state, action) => {
+      state.language = action.payload;
     },
   },
   //   extraReducers: (builder) => {
@@ -40,5 +51,6 @@ const appSlice = createSlice({
   //   },
 });
 
-export const { setLogin } = appSlice.actions;
+export const { setLogin, setInfoUser, setOpenSidebar, setTheme, setLanguage } =
+  appSlice.actions;
 export default appSlice.reducer;

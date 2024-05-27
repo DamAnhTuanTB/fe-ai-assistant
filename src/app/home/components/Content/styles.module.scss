@@ -1,4 +1,12 @@
 .content {
   flex: 1;
-  background-color: green;
+  background: var(--chakra-colors-content);
+  padding: 16px;
+  padding-left: 316px;
+  transition: 0.2s;
+}
+
+.noPaddingLeft{
+  padding-left: 16px;
+  transition: 0.2s;
 }

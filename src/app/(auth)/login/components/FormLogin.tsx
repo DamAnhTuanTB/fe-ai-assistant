@@ -22,10 +22,12 @@ import { setLogin } from "@/redux/slices/appSlice";
 import useToastMessage from "@/utils/useToastMessage";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import styles from "./styles.module.scss";
 
 export default function FormLogin() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const router = useRouter();
   const { colorMode, setColorMode, toggleColorMode } = useColorMode();
@@ -90,7 +92,7 @@ export default function FormLogin() {
             sx={{ display: { base: "none", md: "inline-block" } }}
             color="green.300"
           />{" "}
-          Login to use more features
+          {t("Login to use more features")}
         </Text>
         <form
           noValidate
