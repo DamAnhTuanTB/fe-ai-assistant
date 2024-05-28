@@ -87,7 +87,10 @@ export default function FormLogin() {
     >
       <Box className={styles.formContainer}>
         <Logo sx={{ display: { base: "flex", md: "none" } }} />
-        <Text className={styles.text} color="green.800">
+        <Text
+          className={styles.text}
+          color={colorMode === "dark" ? "green.500" : "green.800"}
+        >
           <StarIcon
             sx={{ display: { base: "none", md: "inline-block" } }}
             color="green.300"
@@ -130,7 +133,11 @@ export default function FormLogin() {
         </form>
         <Box position="relative" pt={10} pb={10}>
           <Divider />
-          <AbsoluteCenter color="gray.500" bg="white" px="4">
+          <AbsoluteCenter
+            color="gray.500"
+            bg={colorMode === "dark" ? "gray.900" : "white"}
+            px="4"
+          >
             or
           </AbsoluteCenter>
         </Box>

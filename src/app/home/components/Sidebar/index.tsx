@@ -28,22 +28,23 @@ export default function Sidebar() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            // height: "52px",
           }}
         >
           <Logo
             sx={{
               "& *": {
-                fontSize: "20px !important",
+                fontSize: "22px !important",
               },
               "& img": {
-                width: "32px",
-                height: "32px",
+                width: "35px",
+                height: "35px",
               },
             }}
           />
           <HamburgerIcon
-            width="22px"
-            height="22px"
+            width="24px"
+            height="24px"
             sx={{ cursor: "pointer", display: openSidebar ? "block" : "none" }}
             onClick={() => {
               localStorage.setItem("openSidebar", "false");

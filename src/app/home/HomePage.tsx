@@ -11,7 +11,7 @@ import {
 import userService from "@/services/user";
 import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import Content from "./components/Content";
@@ -29,7 +29,7 @@ function HomePage({
   const dispatch = useDispatch();
   const { i18n } = useTranslation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (token && refreshToken) {
       localStorage.setItem("token", token);
       localStorage.setItem("refreshToken", refreshToken);
@@ -39,7 +39,7 @@ function HomePage({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, refreshToken]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (localStorage.getItem("token")) {
       dispatch(setLogin(true));
       userService.getInfo().then((res) => {

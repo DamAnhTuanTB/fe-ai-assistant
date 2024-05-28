@@ -4,9 +4,22 @@
   padding: 16px;
   padding-left: 316px;
   transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+  @media screen and (max-width: 768px) {
+    padding-left: 16px;
+  }
 }
 
 .noPaddingLeft{
   padding-left: 16px;
   transition: 0.2s;
+}
+
+.textarea{
+  resize: none;
+  flex: 1;
+  outline: none;
+  padding: 8px;
+  background-color: transparent;
 }
