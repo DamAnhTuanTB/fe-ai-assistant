@@ -5,6 +5,7 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 export default function CustomTextInput({
   label,
   placeholder,
@@ -22,22 +23,24 @@ export default function CustomTextInput({
   isRequired?: boolean;
   size?: "sm" | "md" | "lg";
 }) {
+  const { t } = useTranslation();
   return (
     <FormControl
       isInvalid={!!error}
       sx={{ mb: "16px" }}
       isRequired={isRequired}
     >
-      <FormLabel>{label}</FormLabel>
+      {label && <FormLabel>{t(label)}</FormLabel>}
+
       <Input
         type="text"
-        placeholder={placeholder}
+        placeholder={t(placeholder as string)}
         {...register}
         size={size}
         focusBorderColor="green.600"
       />
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
-      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
+      {helperText && <FormHelperText>{t(helperText)}</FormHelperText>}
+      {error && <FormErrorMessage>{t(error.message)}</FormErrorMessage>}
     </FormControl>
   );
 }

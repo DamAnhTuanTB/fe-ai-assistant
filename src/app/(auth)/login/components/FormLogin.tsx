@@ -107,14 +107,14 @@ export default function FormLogin() {
             error={errors["email"]}
             register={register("email")}
             isRequired={true}
-            placeholder=" Please Enter Email"
+            placeholder="Please enter email"
           />
           <CustomPasswordInput
             label="Password"
             error={errors["password"]}
             register={register("password")}
             isRequired={true}
-            placeholder=" Please Enter Password"
+            placeholder="Please enter password"
           />
           <Button
             isLoading={loading}

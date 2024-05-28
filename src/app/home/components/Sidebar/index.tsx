@@ -28,7 +28,6 @@ export default function Sidebar() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            // height: "52px",
           }}
         >
           <Logo
