@@ -89,7 +89,7 @@ export default function FormLogin() {
         <Logo sx={{ display: { base: "flex", md: "none" } }} />
         <Text
           className={styles.text}
-          color={colorMode === "dark" ? "green.500" : "green.800"}
+          color={colorMode === "dark" ? "green.00" : "green.800"}
         >
           <StarIcon
             sx={{ display: { base: "none", md: "inline-block" } }}

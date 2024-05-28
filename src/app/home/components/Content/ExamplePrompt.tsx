@@ -104,6 +104,7 @@ export default function ExamplePrompt() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        padding: "16px 0px",
       }}
     >
       <Box
