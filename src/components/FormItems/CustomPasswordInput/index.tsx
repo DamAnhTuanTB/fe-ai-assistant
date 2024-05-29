@@ -9,6 +9,7 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 export default function CustomPasswordInput({
   label,
   placeholder,
@@ -26,6 +27,7 @@ export default function CustomPasswordInput({
   isRequired?: boolean;
   size?: "sm" | "md" | "lg";
 }) {
+  const { t } = useTranslation();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   return (
@@ -34,7 +36,7 @@ export default function CustomPasswordInput({
       sx={{ mb: "16px" }}
       isRequired={isRequired}
     >
-      <FormLabel>{label}</FormLabel>
+      {label && <FormLabel>{t(label)}</FormLabel>}
       <InputGroup>
         <Input
           type={show ? "text" : "password"}
@@ -51,8 +53,8 @@ export default function CustomPasswordInput({
         </InputRightElement>
       </InputGroup>
 
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
-      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
+      {helperText && <FormHelperText>{t(helperText)}</FormHelperText>}
+      {error && <FormErrorMessage>{t(error.message)}</FormErrorMessage>}
     </FormControl>
   );
 }

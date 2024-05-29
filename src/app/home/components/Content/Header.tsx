@@ -14,9 +14,8 @@ import {
 } from "@chakra-ui/react";
 
 import {
-  setInfoUser,
+  resetValues,
   setLanguage,
-  setLogin,
   setOpenSidebar,
   setTheme,
 } from "@/redux/slices/appSlice";
@@ -155,14 +154,12 @@ export default function Header() {
                   localStorage.removeItem("refreshToken");
                   localStorage.removeItem("infoUser");
                   localStorage.removeItem("openSidebar");
-                  dispatch(setLogin(false));
-                  dispatch(setInfoUser(null));
-                  dispatch(setOpenSidebar(true));
+                  dispatch(resetValues());
                   router.push("/login");
                 }}
               >
                 <ExternalLinkIcon width="18px" height="18px" />
-                Log out
+                {t("Log out")}
               </MenuItem>
             </MenuList>
           </Menu>

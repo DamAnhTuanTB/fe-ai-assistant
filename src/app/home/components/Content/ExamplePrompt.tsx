@@ -1,11 +1,14 @@
+import { setPrompt } from "@/redux/slices/appSlice";
 import { Box, Icon, Image, Text } from "@chakra-ui/react";
 import { useLayoutEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   AiOutlineFileDone,
   AiOutlineLaptop,
   AiOutlineRead,
   AiOutlineSun,
 } from "react-icons/ai";
+import { useDispatch } from "react-redux";
 
 // const listPrompt = [
 //   "Thiết kế một trò chơi viết mã vui nhộn",
@@ -71,6 +74,10 @@ const randomPrompts = getRandomPrompts(listPrompt);
 export default function ExamplePrompt() {
   const [examples, setExamples] = useState<any>([]);
 
+  const dispatch = useDispatch();
+
+  const { t } = useTranslation();
+
   useLayoutEffect(() => {
     const examples = [
       {
@@ -102,6 +109,7 @@ export default function ExamplePrompt() {
       sx={{
         flex: 1,
         display: "flex",
+        overflowY: "auto",
         alignItems: "center",
         justifyContent: "center",
         padding: "16px 0px",
@@ -109,6 +117,8 @@ export default function ExamplePrompt() {
     >
       <Box
         sx={{
+          flex: 1,
+          height: "max-content",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -143,6 +153,7 @@ export default function ExamplePrompt() {
                 padding: "8px",
                 cursor: "pointer",
               }}
+              onClick={() => dispatch(setPrompt(t(example.prompt)))}
             >
               <Icon
                 as={example.icon}
@@ -150,7 +161,7 @@ export default function ExamplePrompt() {
                 width={6}
                 height={6}
               />
-              <Text sx={{ mt: "6px", color: "gray" }}>{example.prompt}</Text>
+              <Text sx={{ mt: "6px", color: "gray" }}>{t(example.prompt)}</Text>
             </Box>
           ))}
         </Box>

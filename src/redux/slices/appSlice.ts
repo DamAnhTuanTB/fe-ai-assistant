@@ -17,6 +17,11 @@ const appSlice = createSlice({
     openSidebar: true,
     language: "en",
     theme: "light",
+    chatId: "",
+    prompt: "",
+    loading: false,
+    contents: [],
+    listTitle: [],
   },
   reducers: {
     setLogin: (state, action) => {
@@ -33,6 +38,37 @@ const appSlice = createSlice({
     },
     setLanguage: (state, action) => {
       state.language = action.payload;
+    },
+    setChatId: (state, action) => {
+      state.chatId = action.payload;
+    },
+    setPrompt: (state, action) => {
+      state.prompt = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+    addContents: (state, action) => {
+      const currentContents: any = state.contents;
+      state.contents = [...currentContents, ...action.payload] as any;
+    },
+    setContents: (state, action) => {
+      state.contents = action.payload;
+    },
+    setEmptyContents: (state) => {
+      state.contents = [];
+    },
+    resetValues: (state) => {
+      state.isLogin = false;
+      state.infoUser = null;
+      state.openSidebar = true;
+      state.chatId = "";
+      state.prompt = "";
+      state.loading = false;
+      state.contents = [];
+    },
+    setListTitle: (state, action) => {
+      state.listTitle = action.payload;
     },
   },
   //   extraReducers: (builder) => {
@@ -51,6 +87,19 @@ const appSlice = createSlice({
   //   },
 });
 
-export const { setLogin, setInfoUser, setOpenSidebar, setTheme, setLanguage } =
-  appSlice.actions;
+export const {
+  setLogin,
+  setInfoUser,
+  setOpenSidebar,
+  setTheme,
+  setLanguage,
+  setChatId,
+  setPrompt,
+  setLoading,
+  addContents,
+  setEmptyContents,
+  setContents,
+  resetValues,
+  setListTitle,
+} = appSlice.actions;
 export default appSlice.reducer;

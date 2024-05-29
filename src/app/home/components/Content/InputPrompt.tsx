@@ -1,9 +1,96 @@
+import {
+  addContents,
+  setChatId,
+  setLoading,
+  setPrompt,
+} from "@/redux/slices/appSlice";
+import { RootState } from "@/redux/store";
+import chatService from "@/services/chat";
+import useToastMessage from "@/utils/useToastMessage";
 import { ArrowUpIcon } from "@chakra-ui/icons";
 import { Box, IconButton, Text } from "@chakra-ui/react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import TextareaAutosize from "react-textarea-autosize";
 import styles from "./styles.module.scss";
 
-export default function InputPrompt() {
+export default function InputPrompt({ loading }: any) {
+  const { t, i18n } = useTranslation();
+  const isLogin = useSelector((state: RootState) => state.appReducer.isLogin);
+  const id = useSelector((state: RootState) => state.appReducer.chatId);
+  const prompt = useSelector((state: RootState) => state.appReducer.prompt);
+  const contents = useSelector((state: RootState) => state.appReducer.contents);
+
+  const { showError } = useToastMessage();
+  const dispatch = useDispatch();
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const ref = useRef<any>(null);
+
+  const createNewChat = () => {
+    dispatch(addContents([{ ai: false, text: prompt }]));
+    dispatch(setLoading(true));
+    chatService
+      .createNewChat({ prompt }, isLogin)
+      .then((res: any) => {
+        dispatch(addContents([{ ai: true, text: res?.result }]));
+        dispatch(setChatId(res?.id));
+        if (isLogin) {
+          router.push(`${pathname}/?id=${res?.id}`);
+        }
+      })
+      .catch((err) => {
+        showError(
+          "Error",
+          err?.response?.data?.message ||
+            err?.response?.data?.error?.message ||
+            err?.message
+        );
+      })
+      .finally(() => {
+        dispatch(setLoading(false));
+      });
+    dispatch(setPrompt(""));
+  };
+
+  const continueChat = () => {
+    dispatch(setLoading(true));
+    dispatch(addContents([{ ai: false, text: prompt }]));
+
+    chatService
+      .continueChat({ prompt, id })
+      .then((res: any) => {
+        dispatch(addContents([{ ai: true, text: res?.result }]));
+      })
+      .catch((err) => {
+        showError(
+          "Error",
+          err?.response?.data?.message ||
+            err?.response?.data?.error?.message ||
+            err?.message
+        );
+      })
+      .finally(() => {
+        dispatch(setLoading(false));
+      });
+    dispatch(setPrompt(""));
+  };
+
+  const handleSubmit = () => {
+    if (contents?.length === 0) {
+      createNewChat();
+    } else {
+      continueChat();
+    }
+  };
+
+  useEffect(() => {
+    ref.current.focus();
+  }, [id, loading]);
+
   return (
     <Box>
       <Box
@@ -18,21 +105,35 @@ export default function InputPrompt() {
         }}
       >
         <TextareaAutosize
+          disabled={loading}
+          ref={ref}
+          onChange={(e) => dispatch(setPrompt(e.target.value))}
+          value={prompt}
           maxRows={8}
           className={styles.textarea}
-          placeholder="Type your prompt here"
+          placeholder={t("Type your prompt here")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              ref.current.blur();
+              handleSubmit();
+            }
+          }}
         />
         <IconButton
+          isLoading={loading}
           isRound={true}
           variant="solid"
           colorScheme="teal"
           aria-label="Done"
           fontSize="20px"
           icon={<ArrowUpIcon />}
+          onClick={handleSubmit}
         />
       </Box>
       <Text sx={{ textAlign: "center", fontSize: "13px", mt: 1 }}>
-        AI Assistant can make mistakes. Please check important information.
+        {t(
+          "AI Assistant can make mistakes. Please check important information."
+        )}
       </Text>
     </Box>
   );

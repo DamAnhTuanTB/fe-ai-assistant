@@ -1,17 +1,21 @@
 import { Drawer, DrawerContent, DrawerOverlay } from "@chakra-ui/react";
 
 import Logo from "@/app/(auth)/login/components/Logo";
+import { setChatId, setEmptyContents } from "@/redux/slices/appSlice";
 import { RootState } from "@/redux/store";
 import { CloseIcon, EditIcon } from "@chakra-ui/icons";
 import { Box, Button, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import ListTitle from "../Sidebar/ListTitle";
 
 export default function DrawerSidebar({ isOpen, onClose }: any) {
   const router = useRouter();
-
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const isLogin = useSelector((state: RootState) => state.appReducer?.isLogin);
+  const loading = useSelector((state: RootState) => state.appReducer.loading);
   return (
     <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
       <DrawerOverlay />
@@ -55,16 +59,24 @@ export default function DrawerSidebar({ isOpen, onClose }: any) {
             />
           </Box>
           <Button
+            onClick={() => {
+              dispatch(setChatId(""));
+              dispatch(setEmptyContents());
+              onClose();
+              router.replace("/");
+            }}
             rightIcon={<EditIcon />}
             colorScheme="teal"
             variant="outline"
             width="100%"
             mt={4}
+            isDisabled={loading}
             // _hover={{ bg: "teal.100" }}
           >
-            New chat
+            {t("New chat")}
           </Button>
         </Box>
+        <ListTitle onClose={onClose} />
         {!isLogin && (
           <Box>
             <Button
@@ -74,9 +86,9 @@ export default function DrawerSidebar({ isOpen, onClose }: any) {
                 router.push("/login");
               }}
             >
-              Login
+              {t("Login")}
             </Button>
-            <Text textAlign="center">Login to use more features</Text>
+            <Text textAlign="center">{t("Login to use more features")}</Text>
           </Box>
         )}
       </DrawerContent>

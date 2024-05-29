@@ -1,20 +1,40 @@
 import Logo from "@/app/(auth)/login/components/Logo";
-import { setOpenSidebar } from "@/redux/slices/appSlice";
+import {
+  setChatId,
+  setEmptyContents,
+  setListTitle,
+  setOpenSidebar,
+} from "@/redux/slices/appSlice";
 import { RootState } from "@/redux/store";
+import chatService from "@/services/chat";
 import { EditIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Button, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import ListTitle from "./ListTitle";
 import styles from "./styles.module.scss";
 
 export default function Sidebar() {
+  const { t } = useTranslation();
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const isLogin = useSelector((state: RootState) => state.appReducer?.isLogin);
+  const loading = useSelector((state: RootState) => state.appReducer.loading);
+  const id = useSelector((state: RootState) => state.appReducer.chatId);
   const openSidebar = useSelector(
     (app: RootState) => app.appReducer.openSidebar
   );
 
-  const dispatch = useDispatch();
-  const isLogin = useSelector((state: RootState) => state.appReducer?.isLogin);
+  useEffect(() => {
+    if (isLogin) {
+      chatService.getListTitleChat().then((res) => {
+        dispatch(setListTitle(res?.data));
+      });
+    }
+  }, [id, isLogin]);
 
   return (
     <Box
@@ -52,16 +72,23 @@ export default function Sidebar() {
           />
         </Box>
         <Button
+          onClick={() => {
+            dispatch(setChatId(""));
+            dispatch(setEmptyContents());
+            router.replace("/");
+          }}
           rightIcon={<EditIcon />}
           colorScheme="teal"
           variant="outline"
           width="100%"
           mt={4}
+          isDisabled={loading}
           // _hover={{ bg: "teal.100" }}
         >
-          New chat
+          {t("New chat")}
         </Button>
       </Box>
+      <ListTitle />
       {!isLogin && (
         <Box>
           <Button
@@ -71,9 +98,9 @@ export default function Sidebar() {
               router.push("/login");
             }}
           >
-            Login
+            {t("Login")}
           </Button>
-          <Text textAlign="center">Login to use more features</Text>
+          <Text textAlign="center">{t("Login to use more features")}</Text>
         </Box>
       )}
     </Box>

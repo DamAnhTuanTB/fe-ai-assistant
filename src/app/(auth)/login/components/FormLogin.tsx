@@ -30,7 +30,7 @@ export default function FormLogin() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const router = useRouter();
-  const { colorMode, setColorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
   const { showError, showSuccess } = useToastMessage();
   const [loading, setLoading] = useState(false);
   const schema = yup.object().shape({
@@ -128,7 +128,7 @@ export default function FormLogin() {
               bgGradient: "linear(to-r, red.500, yellow.500)",
             }}
           >
-            Login
+            {t("Login")}
           </Button>
         </form>
         <Box position="relative" pt={10} pb={10}>
@@ -138,7 +138,7 @@ export default function FormLogin() {
             bg={colorMode === "dark" ? "gray.900" : "white"}
             px="4"
           >
-            or
+            {t("or")}
           </AbsoluteCenter>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -150,7 +150,7 @@ export default function FormLogin() {
             onClick={() => loginWithSocial("google")}
           >
             <Text width={220} textAlign="left">
-              Continue with Google
+              {t("Continue with Google")}
             </Text>
           </Button>
           <Button
@@ -161,7 +161,7 @@ export default function FormLogin() {
             onClick={() => loginWithSocial("facebook")}
           >
             <Text width={220} textAlign="left">
-              Continue with Facebook
+              {t("Continue with Facebook")}
             </Text>
           </Button>
         </Box>
