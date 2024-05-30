@@ -32,7 +32,7 @@ export default function Main({ id }: { id: string }) {
           justifyContent: "flex-end",
         }}
       >
-        {loadingDetail && (
+        {loadingDetail && contents?.length === 0 && (
           <Box
             sx={{
               flex: 1,
@@ -53,9 +53,7 @@ export default function Main({ id }: { id: string }) {
 
         {!id && contents?.length === 0 && <ExamplePrompt />}
 
-        {!loadingDetail && contents?.length > 0 && (
-          <ListChat contents={contents} />
-        )}
+        {contents?.length > 0 && <ListChat contents={contents} />}
 
         <InputPrompt />
       </Box>
