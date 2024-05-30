@@ -10,33 +10,6 @@ import {
 } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 
-// const listPrompt = [
-//   "Thiết kế một trò chơi viết mã vui nhộn",
-//   "Thiết kế kịch bản cho một bộ phim về đề tài gia đình",
-//   "Tạo ra một ứng dụng giúp cải thiện sức khỏe tinh thần",
-//   "Viết một bài blog về cách chăm sóc cây cảnh",
-//   "Viết một bài blog về cách chăm sóc thú cưng",
-//   "Viết một bài blog về cách chăm sóc trẻ sơ sinh",
-//   "Viết một bài blog về cách chăm sóc người già",
-//   "Giải thích về hiện tượng nhật thực",
-//   "Giải thích sự khác nhau giữa TypeScript và JavaScript",
-//   "Thiết kế giao diện người dùng cho một ứng dụng mua sắm online bằng Ant Design",
-//   "Đưa ra ý tưởng thiết kế logo cho một startup công nghệ",
-//   "Soạn thảo kịch bản cho một bộ phim hành động",
-//   "Đề xuất một lộ trình học tập cho người mới bắt đầu với ReactJS",
-//   "Đưa ra các lời khuyên để cải thiện kỹ năng giải quyết vấn đề trong lập trình",
-//   "Hướng dẫn cách sử dụng công cụ quản lý dự án như Jira hoặc Trello",
-//   "Tạo một câu chuyện giả tưởng về thế giới sau 100 năm nữa",
-//   "Viết kịch bản cho một chương trình truyền hình thực tế về phát triển phần mềm",
-//   "Đề xuất một ứng dụng mới giúp cải thiện hiệu quả làm việc nhóm",
-//   "Viết mã để tạo một ứng dụng To-Do List bằng ReactJS",
-//   "Hướng dẫn cách tích hợp API trong một dự án NextJS",
-//   "Viết kịch bản cho một bộ phim trinh thám ly kỳ",
-//   "Viết một câu chuyện kinh dị ngắn gọn",
-//   "Viết kịch bản cho một bộ phim về cuộc sống của một nhạc sĩ nổi tiếng",
-//   "Tạo ra một ứng dụng học ngoại ngữ qua các trò chơi",
-// ];
-
 const listPrompt = [
   "Design a fun coding game",
   "Create a script for a family-themed movie",
