@@ -1,12 +1,14 @@
 import { RootState } from "@/redux/store";
-import { Box } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import ExamplePrompt from "./ExamplePrompt";
 import InputPrompt from "./InputPrompt";
 import ListChat from "./ListChat";
 
-export default function Main() {
-  const loading = useSelector((state: RootState) => state.appReducer.loading);
+export default function Main({ id }: { id: string }) {
+  const loadingDetail = useSelector(
+    (state: RootState) => state.appReducer.loadingDetail
+  );
   const contents = useSelector((state: RootState) => state.appReducer.contents);
 
   return (
@@ -27,14 +29,35 @@ export default function Main() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
+          justifyContent: "flex-end",
         }}
       >
-        {contents?.length === 0 ? (
-          <ExamplePrompt />
-        ) : (
-          <ListChat contents={contents} loading={loading} />
+        {loadingDetail && (
+          <Box
+            sx={{
+              flex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Spinner
+              size="xl"
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="teal"
+            />
+          </Box>
         )}
-        <InputPrompt loading={loading} />
+
+        {!id && contents?.length === 0 && <ExamplePrompt />}
+
+        {!loadingDetail && contents?.length > 0 && (
+          <ListChat contents={contents} />
+        )}
+
+        <InputPrompt />
       </Box>
     </Box>
   );

@@ -1,9 +1,12 @@
 import { RootState } from "@/redux/store";
 import { Avatar, Box, Spinner, Text } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
-export default function ListChat({ contents, loading }: any) {
+export default function ListChat({ contents }: any) {
+  const { t } = useTranslation();
+  const loading = useSelector((state: RootState) => state.appReducer.loading);
   const infoUser: any = useSelector(
     (state: RootState) => state.appReducer.infoUser
   );
@@ -41,12 +44,18 @@ export default function ListChat({ contents, loading }: any) {
               <Text sx={{ fontWeight: "bold" }}>
                 {item?.ai ? "AI Assistant" : "You"}
               </Text>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: item?.text?.replace(/\\n/g, "<br />"),
-                  // __html: item?.text,
-                }}
-              />
+              {item?.text ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: item?.text?.replace(/\\n/g, "<br />"),
+                    // __html: item?.text,
+                  }}
+                />
+              ) : (
+                <Text color="red.400">
+                  {t("An error occurred. Please try again.")}
+                </Text>
+              )}
             </Box>
           </Box>
         );

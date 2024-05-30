@@ -6,6 +6,8 @@ import {
   setContents,
   setInfoUser,
   setLanguage,
+  setListTitle,
+  setLoadingDetail,
   setLogin,
   setOpenSidebar,
   setTheme,
@@ -35,6 +37,9 @@ function HomePage({
   const dispatch = useDispatch();
   const { i18n } = useTranslation();
   const contents = useSelector((state: RootState) => state.appReducer.contents);
+  const isLogin = useSelector((state: RootState) => state.appReducer?.isLogin);
+  const reload = useSelector((state: RootState) => state.appReducer.reload);
+
   useEffect(() => {
     if (token && refreshToken) {
       localStorage.setItem("token", token);
@@ -46,13 +51,27 @@ function HomePage({
   }, [token, refreshToken]);
 
   useEffect(() => {
-    if (id && contents?.length === 0) {
-      dispatch(setChatId(id));
-      chatService.getDetailChat(id).then((res) => {
-        dispatch(setContents(res?.data?.messages));
-      });
+    dispatch(setChatId(id || ""));
+    if (id) {
+      dispatch(setLoadingDetail(true));
+      chatService
+        .getDetailChat(id)
+        .then((res) => {
+          dispatch(setContents(res?.data?.messages));
+        })
+        .finally(() => {
+          dispatch(setLoadingDetail(false));
+        });
     }
   }, [id]);
+
+  useEffect(() => {
+    if (isLogin) {
+      chatService.getListTitleChat().then((res) => {
+        dispatch(setListTitle(res?.data));
+      });
+    }
+  }, [isLogin]);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -77,8 +96,8 @@ function HomePage({
 
   return (
     <Box className={styles.homePage}>
-      <Sidebar />
-      <Content />
+      <Sidebar id={id} />
+      <Content id={id} />
     </Box>
   );
 }

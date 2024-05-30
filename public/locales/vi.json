@@ -42,5 +42,19 @@
     "Develop a language learning app through games": "Phát triển một ứng dụng học ngôn ngữ thông qua trò chơi",
     "Log out": "Đăng xuất",
     "Type your prompt here": "Nhập câu hỏi của bạn ở đây",
-    "AI Assistant can make mistakes. Please check important information.": "Trợ lý AI có thể mắc lỗi. Vui lòng kiểm tra thông tin quan trọng."
+    "AI Assistant can make mistakes. Please check important information.": "Trợ lý AI có thể mắc lỗi. Vui lòng kiểm tra thông tin quan trọng.",
+    "An error occurred. Please try again.": "Đã xảy ra lỗi. Vui lòng thử lại.",
+    "Start with AI Assistant": "Bắt đầu với Trợ lý AI",
+    "Rename title success": "Đổi tên tiêu đề thành công",
+    "Delete this chat success": "Xóa đoạn chat thành công",
+    "Rename": "Đổi tên",
+    "Share": "Chia sẻ",
+    "Delete": "Xóa",
+    "Share A Chat": "Chia sẻ đoạn chat",
+    "Close": "Đóng",
+    "Copied to clipboard": "Đã sao chép vào bộ nhớ tạm",
+    "Delete Chat": "Xóa đoạn chat",
+    "Are you sure you want to delete this chat?": "Bạn có chắc chắn muốn xóa đoạn chat này không?",
+    "Cancel": "Hủy"
+
  }

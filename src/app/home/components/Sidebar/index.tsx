@@ -3,6 +3,7 @@ import {
   setChatId,
   setEmptyContents,
   setListTitle,
+  setLoadingDetail,
   setOpenSidebar,
 } from "@/redux/slices/appSlice";
 import { RootState } from "@/redux/store";
@@ -16,14 +17,14 @@ import { useDispatch, useSelector } from "react-redux";
 import ListTitle from "./ListTitle";
 import styles from "./styles.module.scss";
 
-export default function Sidebar() {
+export default function Sidebar({ id }: { id: string }) {
   const { t } = useTranslation();
   const router = useRouter();
   const dispatch = useDispatch();
 
   const isLogin = useSelector((state: RootState) => state.appReducer?.isLogin);
   const loading = useSelector((state: RootState) => state.appReducer.loading);
-  const id = useSelector((state: RootState) => state.appReducer.chatId);
+
   const openSidebar = useSelector(
     (app: RootState) => app.appReducer.openSidebar
   );
@@ -75,6 +76,7 @@ export default function Sidebar() {
           onClick={() => {
             dispatch(setChatId(""));
             dispatch(setEmptyContents());
+            dispatch(setLoadingDetail(false));
             router.replace("/");
           }}
           rightIcon={<EditIcon />}
@@ -88,7 +90,7 @@ export default function Sidebar() {
           {t("New chat")}
         </Button>
       </Box>
-      <ListTitle />
+      <ListTitle id={id} />
       {!isLogin && (
         <Box>
           <Button

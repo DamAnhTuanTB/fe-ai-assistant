@@ -1,6 +1,7 @@
 import {
   addContents,
   setChatId,
+  setEmptyContents,
   setLoading,
   setPrompt,
 } from "@/redux/slices/appSlice";
@@ -16,9 +17,10 @@ import { useDispatch, useSelector } from "react-redux";
 import TextareaAutosize from "react-textarea-autosize";
 import styles from "./styles.module.scss";
 
-export default function InputPrompt({ loading }: any) {
+export default function InputPrompt() {
   const { t, i18n } = useTranslation();
   const isLogin = useSelector((state: RootState) => state.appReducer.isLogin);
+  const loading = useSelector((state: RootState) => state.appReducer.loading);
   const id = useSelector((state: RootState) => state.appReducer.chatId);
   const prompt = useSelector((state: RootState) => state.appReducer.prompt);
   const contents = useSelector((state: RootState) => state.appReducer.contents);
@@ -43,6 +45,7 @@ export default function InputPrompt({ loading }: any) {
         }
       })
       .catch((err) => {
+        dispatch(setEmptyContents());
         showError(
           "Error",
           err?.response?.data?.message ||
@@ -66,6 +69,7 @@ export default function InputPrompt({ loading }: any) {
         dispatch(addContents([{ ai: true, text: res?.result }]));
       })
       .catch((err) => {
+        dispatch(addContents([{ ai: true, text: null }]));
         showError(
           "Error",
           err?.response?.data?.message ||

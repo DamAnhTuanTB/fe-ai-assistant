@@ -20,8 +20,10 @@ const appSlice = createSlice({
     chatId: "",
     prompt: "",
     loading: false,
+    loadingDetail: false,
     contents: [],
     listTitle: [],
+    reload: 0,
   },
   reducers: {
     setLogin: (state, action) => {
@@ -70,6 +72,12 @@ const appSlice = createSlice({
     setListTitle: (state, action) => {
       state.listTitle = action.payload;
     },
+    setLoadingDetail: (state, action) => {
+      state.loadingDetail = action.payload;
+    },
+    setReload: (state) => {
+      state.reload += 1;
+    },
   },
   //   extraReducers: (builder) => {
   //     builder
@@ -101,5 +109,7 @@ export const {
   setContents,
   resetValues,
   setListTitle,
+  setLoadingDetail,
+  setReload,
 } = appSlice.actions;
 export default appSlice.reducer;

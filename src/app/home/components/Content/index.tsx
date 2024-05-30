@@ -6,7 +6,7 @@ import Header from "./Header";
 import Main from "./Main";
 import styles from "./styles.module.scss";
 
-export default function Content() {
+export default function Content({ id }: { id: string }) {
   const openSidebar = useSelector(
     (app: RootState) => app.appReducer.openSidebar
   );
@@ -16,7 +16,7 @@ export default function Content() {
       className={`${styles.content} ${!openSidebar && styles.noPaddingLeft}`}
     >
       <Header />
-      <Main />
+      <Main id={id} />
     </Box>
   );
 }

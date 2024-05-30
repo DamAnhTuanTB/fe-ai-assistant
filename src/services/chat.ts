@@ -1,4 +1,4 @@
-import { getApi, postApi } from "./config/axios";
+import { deleteApi, getApi, postApi, putApi } from "./config/axios";
 
 const chatService = {
   createNewChat: (body: { prompt: string }, isLogin: boolean) => {
@@ -17,6 +17,12 @@ const chatService = {
   },
   getListTitleChat: () => {
     return getApi(`/chat-completion/get-list-title-chat`);
+  },
+  renameTitleChat: (id: string, body: { title: string }) => {
+    return putApi(`/chat-completion/rename-title-chat/${id}`, body);
+  },
+  deleteChat: (id: string) => {
+    return deleteApi(`/chat-completion/delete-chat/${id}`);
   },
 };
 

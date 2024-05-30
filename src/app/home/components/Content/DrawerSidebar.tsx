@@ -1,7 +1,11 @@
 import { Drawer, DrawerContent, DrawerOverlay } from "@chakra-ui/react";
 
 import Logo from "@/app/(auth)/login/components/Logo";
-import { setChatId, setEmptyContents } from "@/redux/slices/appSlice";
+import {
+  setChatId,
+  setEmptyContents,
+  setLoadingDetail,
+} from "@/redux/slices/appSlice";
 import { RootState } from "@/redux/store";
 import { CloseIcon, EditIcon } from "@chakra-ui/icons";
 import { Box, Button, Text } from "@chakra-ui/react";
@@ -14,6 +18,7 @@ export default function DrawerSidebar({ isOpen, onClose }: any) {
   const router = useRouter();
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const id = useSelector((state: RootState) => state.appReducer.chatId);
   const isLogin = useSelector((state: RootState) => state.appReducer?.isLogin);
   const loading = useSelector((state: RootState) => state.appReducer.loading);
   return (
@@ -62,6 +67,7 @@ export default function DrawerSidebar({ isOpen, onClose }: any) {
             onClick={() => {
               dispatch(setChatId(""));
               dispatch(setEmptyContents());
+              dispatch(setLoadingDetail(false));
               onClose();
               router.replace("/");
             }}
@@ -76,7 +82,7 @@ export default function DrawerSidebar({ isOpen, onClose }: any) {
             {t("New chat")}
           </Button>
         </Box>
-        <ListTitle onClose={onClose} />
+        <ListTitle onClose={onClose} id={id} />
         {!isLogin && (
           <Box>
             <Button
