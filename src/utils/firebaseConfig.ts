@@ -17,7 +17,7 @@ const firebaseConfig = {
   measurementId: "G-FXMERC3H7F",
 };
 
-let analytics;
+let analytics: any;
 
 if (typeof window !== "undefined") {
   const app = initializeApp(firebaseConfig);
