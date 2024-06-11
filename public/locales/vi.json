@@ -55,6 +55,18 @@
     "Copied to clipboard": "Đã sao chép vào bộ nhớ tạm",
     "Delete Chat": "Xóa đoạn chat",
     "Are you sure you want to delete this chat?": "Bạn có chắc chắn muốn xóa đoạn chat này không?",
-    "Cancel": "Hủy"
-
+    "Cancel": "Hủy",
+    "Generate Image": "Tạo ảnh",
+    "Generate PDF": "Tạo PDF",
+    "Prompt is maximum 255 characters": "Prompt tối đa 255 ký tự",
+    "Prompt is required to input": "Prompt là bắt buộc",
+    "Size is required to input": "Kích thước là bắt buộc",
+    "Generate your favorite image": "Tạo ảnh yêu thích của bạn",
+    "Please enter prompt": "Vui lòng nhập prompt",
+    "Please select size" :"Vui lòng chọn kích thước",
+    "Generate": "Tạo",
+    "Download": "Tải xuống",
+    "Reset": "Đặt lại",
+    "Select size": "Chọn kích thước",
+    "This is your result!": "Đây là kết quả của bạn!"
  }

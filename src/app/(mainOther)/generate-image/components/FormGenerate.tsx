@@ -111,7 +111,7 @@ export default function FormGenerate() {
               fontSize: "20px",
             }}
           >
-            This is your result!
+            {t("This is your result!")}
           </Text>
           <Image
             sx={{ margin: "auto", mt: "10px", maxWidth: "500px" }}

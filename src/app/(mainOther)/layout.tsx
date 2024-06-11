@@ -1,15 +1,50 @@
 "use client";
+import {
+  setInfoUser,
+  setLanguage,
+  setLogin,
+  setOpenSidebar,
+  setTheme,
+} from "@/redux/slices/appSlice";
 import { RootState } from "@/redux/store";
+import userService from "@/services/user";
 import { Box } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import styles from "./styles.module.scss";
 
 export default function MainOtherLayout({ children }: any) {
+  const { i18n } = useTranslation();
   const openSidebar = useSelector(
     (app: RootState) => app.appReducer.openSidebar
   );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      dispatch(setLogin(true));
+      userService.getInfo().then((res) => {
+        localStorage.setItem("infoUser", JSON.stringify(res?.data));
+        dispatch(setInfoUser(res?.data));
+      });
+    }
+    if (localStorage.getItem("language")) {
+      i18n.changeLanguage(localStorage.getItem("language") as string);
+
+      dispatch(setLanguage(localStorage.getItem("language")));
+    }
+    if (localStorage.getItem("theme")) {
+      dispatch(setTheme(localStorage.getItem("theme") as string));
+    }
+    if (localStorage.getItem("openSidebar")) {
+      dispatch(setOpenSidebar(localStorage.getItem("openSidebar") === "true"));
+    }
+  }, []);
+
   return (
     <Box sx={{ width: "100vw", height: "100vh", display: "flex" }}>
       <Sidebar />

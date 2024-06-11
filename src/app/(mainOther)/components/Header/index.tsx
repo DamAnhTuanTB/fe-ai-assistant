@@ -50,27 +50,6 @@ export default function Header() {
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      dispatch(setLogin(true));
-      userService.getInfo().then((res) => {
-        localStorage.setItem("infoUser", JSON.stringify(res?.data));
-        dispatch(setInfoUser(res?.data));
-      });
-    }
-    if (localStorage.getItem("language")) {
-      i18n.changeLanguage(localStorage.getItem("language") as string);
-
-      dispatch(setLanguage(localStorage.getItem("language")));
-    }
-    if (localStorage.getItem("theme")) {
-      dispatch(setTheme(localStorage.getItem("theme") as string));
-    }
-    if (localStorage.getItem("openSidebar")) {
-      dispatch(setOpenSidebar(localStorage.getItem("openSidebar") === "true"));
-    }
-  }, []);
-
   return (
     <Box
       sx={{
