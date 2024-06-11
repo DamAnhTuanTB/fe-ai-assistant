@@ -33,6 +33,7 @@ export default function FormGenerate() {
   });
   const onSubmit = (values: any) => {
     setLoading(true);
+    setResult("");
     imageService
       .generateImage(values)
       .then((res: any) => {
