@@ -40,6 +40,16 @@ export default function RootLayout({
           href="/images/logo-ai-assistant.png"
           type="image/png"
         />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body className={inter.className}>
         {/* Add ColorModeScript to use the color mode feature of Chakra UI. */}

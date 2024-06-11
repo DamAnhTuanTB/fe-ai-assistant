@@ -1,13 +1,23 @@
 "use client";
 import publicRoute from "@/components/PublicRoute";
+import { setLanguage } from "@/redux/slices/appSlice";
 import { Avatar, Box, Button, Divider, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 
 function SharePage({ chat }: any) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const router = useRouter();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (localStorage.getItem("language")) {
+      i18n.changeLanguage(localStorage.getItem("language") as string);
+      dispatch(setLanguage(localStorage.getItem("language")));
+    }
+  }, []);
   return (
     <Box
       sx={{

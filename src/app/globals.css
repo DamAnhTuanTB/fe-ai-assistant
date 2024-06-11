@@ -2,10 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: var(--chakra-colors-content);
 }
 
+select > option:first-child {
+  color: "red !important";
+}
+
+option {
+  color: "red !important";
+}
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

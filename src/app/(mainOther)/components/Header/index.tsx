@@ -1,9 +1,9 @@
+"use client";
 import { RootState } from "@/redux/store";
 import {
   Avatar,
   Box,
   Divider,
-  Icon,
   IconButton,
   Menu,
   MenuButton,
@@ -16,17 +16,20 @@ import {
 
 import {
   resetValues,
+  setInfoUser,
   setLanguage,
+  setLogin,
   setOpenSidebar,
   setTheme,
 } from "@/redux/slices/appSlice";
+import userService from "@/services/user";
 import { ExternalLinkIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AiFillMoon, AiOutlineStar, AiOutlineSun } from "react-icons/ai";
+import { AiFillMoon, AiOutlineSun } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import DrawerSidebar from "./DrawerSidebar";
+import DrawerSidebar from "../DrawerSidebar";
 
 export default function Header() {
   const router = useRouter();
@@ -47,13 +50,33 @@ export default function Header() {
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      dispatch(setLogin(true));
+      userService.getInfo().then((res) => {
+        localStorage.setItem("infoUser", JSON.stringify(res?.data));
+        dispatch(setInfoUser(res?.data));
+      });
+    }
+    if (localStorage.getItem("language")) {
+      i18n.changeLanguage(localStorage.getItem("language") as string);
+
+      dispatch(setLanguage(localStorage.getItem("language")));
+    }
+    if (localStorage.getItem("theme")) {
+      dispatch(setTheme(localStorage.getItem("theme") as string));
+    }
+    if (localStorage.getItem("openSidebar")) {
+      dispatch(setOpenSidebar(localStorage.getItem("openSidebar") === "true"));
+    }
+  }, []);
+
   return (
     <Box
       sx={{
         display: "flex",
         alignItems: "center",
         height: "52px",
-        // border: "1px solid black",
       }}
     >
       {!openSidebar && (
@@ -151,15 +174,6 @@ export default function Header() {
               <MenuItem
                 sx={{ display: "flex", gap: "6px" }}
                 onClick={() => {
-                  router.push("/generate-image");
-                }}
-              >
-                <Icon as={AiOutlineStar} width="16px" height="16px" />
-                {t("Explore more features")}
-              </MenuItem>
-              <MenuItem
-                sx={{ display: "flex", gap: "6px" }}
-                onClick={() => {
                   localStorage.removeItem("token");
                   localStorage.removeItem("refreshToken");
                   localStorage.removeItem("infoUser");
@@ -168,7 +182,7 @@ export default function Header() {
                   router.push("/login");
                 }}
               >
-                <ExternalLinkIcon width="16px" height="16px" />
+                <ExternalLinkIcon width="18px" height="18px" />
                 {t("Log out")}
               </MenuItem>
             </MenuList>

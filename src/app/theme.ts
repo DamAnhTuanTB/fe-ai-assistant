@@ -40,6 +40,11 @@ const theme = extendTheme({
         default: "white",
         _dark: "#212121",
       },
+
+      hoverMenu: {
+        default: "gray.100",
+        _dark: "gray.700",
+      },
     },
   },
 });
