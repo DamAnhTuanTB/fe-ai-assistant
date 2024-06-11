@@ -16,16 +16,13 @@ import {
 
 import {
   resetValues,
-  setInfoUser,
   setLanguage,
-  setLogin,
   setOpenSidebar,
   setTheme,
 } from "@/redux/slices/appSlice";
-import userService from "@/services/user";
 import { ExternalLinkIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiFillMoon, AiOutlineSun } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
