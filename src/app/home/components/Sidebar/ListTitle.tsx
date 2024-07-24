@@ -102,7 +102,7 @@ export default function ListTitle({ onClose, id }: any) {
               if (onClose) {
                 onClose();
               }
-              router.push(`${pathname}?id=${item?.id}`);
+              router.push(`/chat/${item?.id}`);
             }}
           >
             <Text

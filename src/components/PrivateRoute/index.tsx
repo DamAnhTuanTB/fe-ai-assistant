@@ -2,7 +2,7 @@
 import { redirect } from "next/navigation";
 import { useLayoutEffect } from "react";
 
-export default function privateRoute(Component: React.FC) {
+export default function privateRoute(Component: any) {
   return function PrivateRoute(props: any) {
     // const [isShow, setIsShow] = useState(false);
     useLayoutEffect(() => {

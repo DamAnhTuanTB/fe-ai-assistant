@@ -6,7 +6,7 @@ import Header from "./Header";
 import Main from "./Main";
 import styles from "./styles.module.scss";
 
-export default function Content({ id }: { id: string }) {
+export default function Content({ id }: { id?: string }) {
   const openSidebar = useSelector(
     (app: RootState) => app.appReducer.openSidebar
   );

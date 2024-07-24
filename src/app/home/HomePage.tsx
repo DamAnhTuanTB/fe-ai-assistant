@@ -1,6 +1,6 @@
 "use client";
 
-import publicRoute from "@/components/PublicRoute";
+import Loading from "@/components/Loading";
 import {
   setChatId,
   setContents,
@@ -15,9 +15,7 @@ import {
 import { RootState } from "@/redux/store";
 import chatService from "@/services/chat";
 import userService from "@/services/user";
-import { analytics } from "@/utils/firebaseConfig";
 import { Box } from "@chakra-ui/react";
-import { logEvent } from "firebase/analytics";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -31,16 +29,18 @@ function HomePage({
   refreshToken,
   id,
 }: {
-  token: string;
-  refreshToken: string;
-  id: string;
+  token?: string;
+  refreshToken?: string;
+  id?: string;
 }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const { i18n } = useTranslation();
-  const contents = useSelector((state: RootState) => state.appReducer.contents);
   const isLogin = useSelector((state: RootState) => state.appReducer?.isLogin);
-  const reload = useSelector((state: RootState) => state.appReducer.reload);
+
+  const loadingDetail = useSelector(
+    (state: RootState) => state.appReducer.loadingDetail
+  );
 
   useEffect(() => {
     if (token && refreshToken) {
@@ -97,19 +97,22 @@ function HomePage({
   }, []);
 
   useEffect(() => {
-    if (analytics) {
-      console.log("ahbcd");
-      console.log(analytics);
-      logEvent(analytics, "visit_home_page");
+    if (!isLogin) {
+      router.push("/login");
     }
-  }, []);
+  }, [isLogin]);
+
+  if (!isLogin) {
+    return <></>;
+  }
 
   return (
     <Box className={styles.homePage}>
       <Sidebar id={id} />
       <Content id={id} />
+      {loadingDetail && <Loading />}
     </Box>
   );
 }
 
-export default publicRoute(HomePage);
+export default HomePage;

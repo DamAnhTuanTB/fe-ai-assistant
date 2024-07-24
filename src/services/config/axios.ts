@@ -25,17 +25,16 @@ axios.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       const refreshToken = window.localStorage.getItem("refreshToken");
-      return axios
+      axios
         .post("/auth/generate-new-token", {
           refreshToken: refreshToken,
         })
-        .then((res) => {
-          if (res.status === 201) {
-            const data = res?.data;
-            localStorage.setItem("token", data?.token);
-            localStorage.setItem("refreshToken", data?.refreshToken);
+        .then((res: any) => {
+          if (res?.token) {
+            localStorage.setItem("token", res?.token);
+            localStorage.setItem("refreshToken", res?.refreshToken);
             axios.defaults.headers.common["Authorization"] =
-              "Bearer " + data?.token;
+              "Bearer " + res?.token;
             return axios(originalRequest);
           }
         })

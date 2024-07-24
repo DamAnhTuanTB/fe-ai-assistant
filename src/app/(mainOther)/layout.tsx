@@ -9,6 +9,7 @@ import {
 import { RootState } from "@/redux/store";
 import userService from "@/services/user";
 import { Box } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +22,9 @@ export default function MainOtherLayout({ children }: any) {
   const openSidebar = useSelector(
     (app: RootState) => app.appReducer.openSidebar
   );
+
+  const router = useRouter();
+  const isLogin = useSelector((app: RootState) => app.appReducer.isLogin);
 
   const dispatch = useDispatch();
 
@@ -44,6 +48,16 @@ export default function MainOtherLayout({ children }: any) {
       dispatch(setOpenSidebar(localStorage.getItem("openSidebar") === "true"));
     }
   }, []);
+
+  useEffect(() => {
+    if (!isLogin) {
+      router.push("/login");
+    }
+  }, [isLogin]);
+
+  if (!isLogin) {
+    return <></>;
+  }
 
   return (
     <Box sx={{ width: "100vw", height: "100vh", display: "flex" }}>

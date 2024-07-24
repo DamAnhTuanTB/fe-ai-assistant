@@ -4,6 +4,7 @@ import {
   Avatar,
   Box,
   Divider,
+  Icon,
   IconButton,
   Menu,
   MenuButton,
@@ -13,6 +14,7 @@ import {
   Text,
   useColorMode,
 } from "@chakra-ui/react";
+import { AiOutlineComment } from "react-icons/ai";
 
 import {
   resetValues,
@@ -147,6 +149,15 @@ export default function Header() {
                 </Text>
               </Box>
               <Divider sx={{ marginTop: "6px", marginBottom: "8px" }} />
+              <MenuItem
+                sx={{ display: "flex", gap: "6px" }}
+                onClick={() => {
+                  router.push("/");
+                }}
+              >
+                <Icon as={AiOutlineComment} width="16px" height="16px" />
+                {t("Chat with AI Asssitant")}
+              </MenuItem>
               <MenuItem
                 sx={{ display: "flex", gap: "6px" }}
                 onClick={() => {

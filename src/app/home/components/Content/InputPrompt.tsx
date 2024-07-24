@@ -1,10 +1,4 @@
-import {
-  addContents,
-  setChatId,
-  setEmptyContents,
-  setLoading,
-  setPrompt,
-} from "@/redux/slices/appSlice";
+import { addContents, setLoading, setPrompt } from "@/redux/slices/appSlice";
 import { RootState } from "@/redux/store";
 import chatService from "@/services/chat";
 import useToastMessage from "@/utils/useToastMessage";
@@ -32,37 +26,32 @@ export default function InputPrompt() {
   const pathname = usePathname();
   const ref = useRef<any>(null);
 
-  const createNewChat = () => {
-    dispatch(addContents([{ ai: false, text: prompt }]));
-    dispatch(setLoading(true));
-    chatService
-      .createNewChat({ prompt }, isLogin)
-      .then((res: any) => {
-        dispatch(addContents([{ ai: true, text: res?.result }]));
-        dispatch(setChatId(res?.id));
-        if (isLogin) {
-          router.push(`${pathname}/?id=${res?.id}`);
-        }
-      })
-      .catch((err) => {
-        dispatch(setEmptyContents());
-        showError(
-          "Error",
-          err?.response?.data?.message ||
-            err?.response?.data?.error?.message ||
-            err?.message
-        );
-      })
-      .finally(() => {
-        dispatch(setLoading(false));
-      });
-    dispatch(setPrompt(""));
-  };
+  // const createNewChat = () => {
+  //   dispatch(addContents([{ ai: false, text: prompt }]));
+  //   dispatch(setLoading(true));
+  //   chatService
+  //     .createNewChat({ prompt }, isLogin)
+  //     .then((res: any) => {
+  //       dispatch(addContents([{ ai: true, text: res?.result }]));
+  //     })
+  //     .catch((err) => {
+  //       dispatch(setEmptyContents());
+  //       showError(
+  //         "Error",
+  //         err?.response?.data?.message ||
+  //           err?.response?.data?.error?.message ||
+  //           err?.message
+  //       );
+  //     })
+  //     .finally(() => {
+  //       dispatch(setLoading(false));
+  //     });
+  //   dispatch(setPrompt(""));
+  // };
 
   const continueChat = () => {
     dispatch(setLoading(true));
     dispatch(addContents([{ ai: false, text: prompt }]));
-
     chatService
       .continueChat({ prompt, id })
       .then((res: any) => {
@@ -84,11 +73,7 @@ export default function InputPrompt() {
   };
 
   const handleSubmit = () => {
-    if (contents?.length === 0) {
-      createNewChat();
-    } else {
-      continueChat();
-    }
+    continueChat();
   };
 
   useEffect(() => {

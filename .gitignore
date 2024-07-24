@@ -12,10 +12,15 @@
 # next.js
 /.next/
 /out/
-
+From user-provided writing requests and input parameters, the system generates complete posts for social media platforms. Users can edit, post immediately, or schedule automatic posts on their linked social media platforms.
 # production
+The user can manage their images collection by sharing images on social media platforms, downloading images, deleting photos, ...
 /build
+ - Basic understanding of Object-Oriented Programming
 
+         - Basic understanding of Data Structures and Algorithms
+
+         - Basic knowledge of Databases
 # misc
 .DS_Store
 *.pem

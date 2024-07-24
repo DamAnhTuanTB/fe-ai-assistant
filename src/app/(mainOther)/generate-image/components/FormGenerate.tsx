@@ -85,27 +85,29 @@ export default function FormGenerate() {
           isRequired={true}
           placeholder="Please select size"
         />
-        <Button
-          isLoading={loading}
-          type="submit"
-          size="lg"
-          width="100%"
-          colorScheme="teal"
-          sx={{ mt: "16px" }}
-          bgGradient="linear(to-r, teal.500, green.500)"
-          _hover={{
-            bgGradient: "linear(to-r, red.500, yellow.500)",
-          }}
-        >
-          {t("Generate")}
-        </Button>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Button
+            isLoading={loading}
+            type="submit"
+            size="lg"
+            // width="100%"
+            colorScheme="teal"
+            sx={{ margin: "auto", mt: "16px" }}
+            // bgGradient="linear(to-r, teal.500, green.500)"
+            // _hover={{
+            //   bgGradient: "linear(to-r, red.500, yellow.500)",
+            // }}
+          >
+            {t("Generate")}
+          </Button>
+        </Box>
       </form>
       {result && (
-        <Box sx={{ mt: "40px" }}>
+        <Box sx={{ mt: "35px" }}>
           <Divider />
           <Text
             sx={{
-              mt: "30px",
+              mt: "22px",
               textAlign: "center",
               fontWeight: "bold",
               fontFamily: "Reddit Mono",

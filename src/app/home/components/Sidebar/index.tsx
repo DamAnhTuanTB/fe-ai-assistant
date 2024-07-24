@@ -1,41 +1,49 @@
 import Logo from "@/app/(auth)/login/components/Logo";
-import {
-  setChatId,
-  setEmptyContents,
-  setListTitle,
-  setLoadingDetail,
-  setOpenSidebar,
-} from "@/redux/slices/appSlice";
+import { setListTitle, setOpenSidebar } from "@/redux/slices/appSlice";
 import { RootState } from "@/redux/store";
 import chatService from "@/services/chat";
 import { EditIcon, HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import ListTitle from "./ListTitle";
 import styles from "./styles.module.scss";
 
-export default function Sidebar({ id }: { id: string }) {
+export default function Sidebar({ id }: { id?: string }) {
   const { t } = useTranslation();
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const isLogin = useSelector((state: RootState) => state.appReducer?.isLogin);
-  const loading = useSelector((state: RootState) => state.appReducer.loading);
-
+  const [loading, setLoading] = useState(false);
   const openSidebar = useSelector(
     (app: RootState) => app.appReducer.openSidebar
   );
 
   useEffect(() => {
-    if (isLogin) {
-      chatService.getListTitleChat().then((res) => {
+    chatService
+      .getListTitleChat()
+      .then((res) => {
         dispatch(setListTitle(res?.data));
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    }
-  }, [id, isLogin]);
+  }, [id]);
+
+  const handleNewEmptyChat = () => {
+    setLoading(true);
+    chatService
+      .createEmptyNewChat()
+      .then((res: any) => {
+        router.push(`/chat/${res?.id}`);
+      })
+      .catch((err) => {})
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   return (
     <Box
@@ -73,38 +81,19 @@ export default function Sidebar({ id }: { id: string }) {
           />
         </Box>
         <Button
-          onClick={() => {
-            dispatch(setChatId(""));
-            dispatch(setEmptyContents());
-            dispatch(setLoadingDetail(false));
-            router.replace("/");
-          }}
+          onClick={handleNewEmptyChat}
           rightIcon={<EditIcon />}
           colorScheme="teal"
           variant="outline"
           width="100%"
           mt={4}
-          isDisabled={loading}
+          isLoading={loading}
           // _hover={{ bg: "teal.100" }}
         >
           {t("New chat")}
         </Button>
       </Box>
       <ListTitle id={id} />
-      {!isLogin && (
-        <Box>
-          <Button
-            width="100%"
-            colorScheme="teal"
-            onClick={() => {
-              router.push("/login");
-            }}
-          >
-            {t("Login")}
-          </Button>
-          <Text textAlign="center">{t("Login to use more features")}</Text>
-        </Box>
-      )}
     </Box>
   );
 }

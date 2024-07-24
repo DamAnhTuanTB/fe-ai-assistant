@@ -1,11 +1,11 @@
 import { Metadata } from "next/types";
-import GeneratePdfPage from "./GeneratePdfPage";
+import GenerateDiagramPage from "./GenerateDiagramPage";
 
 export const metadata: Metadata = {
-  title: "Generate PDF",
+  title: "Generate Diagram",
   description: "Explore the world of AI with our AI assistant.",
   openGraph: {
-    title: "Generate Image",
+    title: "Generate Diagram",
     description: "Explore the world of AI with our AI assistant.",
     url: process.env.NEXT_PUBLIC_URL,
     siteName: "AI Assistant",
@@ -23,5 +23,5 @@ export const metadata: Metadata = {
 };
 
 export default function GeneratePdf() {
-  return <GeneratePdfPage />;
+  return <GenerateDiagramPage />;
 }

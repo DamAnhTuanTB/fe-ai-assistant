@@ -47,6 +47,8 @@ export default function Header() {
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
+  console.log("avatar", infoUser?.avatar);
+
   return (
     <Box
       sx={{

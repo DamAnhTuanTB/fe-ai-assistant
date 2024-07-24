@@ -6,7 +6,11 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Icon } from "@chakra-ui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { AiOutlineFileImage } from "react-icons/ai";
+import {
+  AiOutlineApartment,
+  AiOutlineFileImage,
+  AiOutlineFileText,
+} from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles.module.scss";
 
@@ -19,7 +23,12 @@ export const menu = [
   {
     text: "Generate PDF",
     path: "/generate-pdf",
-    icon: AiOutlineFileImage,
+    icon: AiOutlineFileText,
+  },
+  {
+    text: "Generate Diagram",
+    path: "/generate-diagram",
+    icon: AiOutlineApartment,
   },
 ];
 

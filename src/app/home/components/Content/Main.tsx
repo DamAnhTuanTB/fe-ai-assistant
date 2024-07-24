@@ -1,16 +1,15 @@
+import Typewriter from "@/components/Typewritter";
 import { RootState } from "@/redux/store";
-import { Box, Spinner } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import ExamplePrompt from "./ExamplePrompt";
 import InputPrompt from "./InputPrompt";
 import ListChat from "./ListChat";
 
-export default function Main({ id }: { id: string }) {
-  const loadingDetail = useSelector(
-    (state: RootState) => state.appReducer.loadingDetail
-  );
+export default function Main({ id }: { id?: string }) {
+  const { t } = useTranslation();
   const contents = useSelector((state: RootState) => state.appReducer.contents);
-
   return (
     <Box
       sx={{
@@ -32,30 +31,35 @@ export default function Main({ id }: { id: string }) {
           justifyContent: "flex-end",
         }}
       >
-        {loadingDetail && contents?.length === 0 && (
+        {!id && (
           <Box
             sx={{
-              flex: 1,
+              height: "100%",
+              width: "100%",
               display: "flex",
-              alignItems: "center",
+              flexDirection: "column",
               justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <Spinner
-              size="xl"
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="gray.200"
-              color="teal"
+            <Text sx={{ fontSize: "40px", fontWeight: "bold" }}>
+              {t("Welcome to AI Assistant!")}
+            </Text>
+            <Typewriter
+              text={`"${t(
+                "Your smart assistant ready to support you anytime, anywhere. Start exploring today!"
+              )}"`}
+              sx={{ fontSize: "30px", mt: "10px" }}
+              icon="/images/icon-last-text.png"
             />
           </Box>
         )}
 
-        {!id && contents?.length === 0 && <ExamplePrompt />}
+        {id && contents?.length === 0 && <ExamplePrompt />}
 
         {contents?.length > 0 && <ListChat contents={contents} />}
 
-        <InputPrompt />
+        {id && <InputPrompt />}
       </Box>
     </Box>
   );

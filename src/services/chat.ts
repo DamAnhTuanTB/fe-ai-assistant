@@ -1,6 +1,9 @@
 import { deleteApi, getApi, postApi, putApi } from "./config/axios";
 
 const chatService = {
+  createEmptyNewChat: () => {
+    return postApi("/chat-completion/create-new-empty-chat");
+  },
   createNewChat: (body: { prompt: string }, isLogin: boolean) => {
     return postApi(
       isLogin
